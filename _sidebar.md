@@ -17,4 +17,3 @@
 * **Support**
   * [Troubleshooting](troubleshooting.md)
   * [FAQ](faq.md)
-  * [Discord Support](https://discord.gg/yourlink)

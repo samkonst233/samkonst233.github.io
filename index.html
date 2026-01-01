@@ -6,183 +6,177 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Complete security and monitoring platform for FiveM servers">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
   <link rel="icon" href="/fivemsecure.png">
 
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/docsify@4/lib/themes/vue.css" disabled>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
     :root {
-      /* Matching your React Dashboard Palette */
+      /* Main Website Palette */
       --primary: #3b82f6;
-      --primary-hover: #2563eb;
-      --bg-main: #0f172a; /* slate-900 */
-      --bg-sidebar: rgba(30, 41, 59, 0.7); /* slate-800 with opacity */
-      --bg-card: #1e293b; /* slate-800 */
+      --primary-foreground: #ffffff;
+      --background: #0f172a; /* slate-900 */
+      --sidebar-bg: rgba(30, 41, 59, 0.7); /* slate-800 with blur */
+      --card-bg: #1e293b; /* slate-800 */
       --border: rgba(51, 65, 85, 0.5); /* slate-700/50 */
-      --text-primary: #ffffff;
-      --text-secondary: #94a3b8; /* slate-400 */
-      --text-muted: #64748b; /* slate-500 */
-      
-      /* Shadcn-like variables */
-      --radius: 0.5rem;
-    }
-
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
+      --text-main: #f1f5f9;
+      --text-muted: #94a3b8;
+      --accent-gradient: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
     }
 
     body {
-      font-family: 'Inter', -apple-system, sans-serif;
-      background-color: var(--bg-main);
-      /* Subtle gradient background like your main site */
-      background-image: radial-gradient(at 0% 0%, rgba(30, 41, 59, 0.5) 0, transparent 50%), 
-                        radial-gradient(at 100% 100%, rgba(15, 23, 42, 1) 0, transparent 50%);
-      color: var(--text-primary);
+      font-family: 'Inter', sans-serif;
+      background-color: var(--background);
+      color: var(--text-main);
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
+
+    /* Top Navigation Bar (Electron Style) */
+    .custom-navbar {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 64px;
+      background: rgba(15, 23, 42, 0.8);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      padding: 0 1.5rem;
+      justify-content: space-between;
+    }
+
+    .nav-left { display: flex; align-items: center; gap: 0.75rem; }
+    .nav-left img { height: 32px; width: 32px; }
+    .nav-left span { font-weight: 700; font-size: 1.1rem; letter-spacing: -0.02em; }
 
     /* Sidebar Styling */
     .sidebar {
-      background: var(--bg-sidebar) !important;
-      backdrop-filter: blur(8px);
+      top: 64px;
+      padding-top: 20px;
+      background-color: var(--sidebar-bg) !important;
+      backdrop-filter: blur(10px);
       border-right: 1px solid var(--border);
-      color: var(--text-secondary);
+      width: 280px !important;
+      color: var(--text-muted);
     }
 
-    .sidebar > h1 .app-name-link {
-      font-weight: 700;
-      font-size: 1.25rem;
-      color: white !important;
-      text-decoration: none;
-    }
+    .sidebar > h1 { display: none; } /* Hide default docsify name */
 
-    /* Custom App Name Gradient */
-    .sidebar .app-name span {
-      background: linear-gradient(to right, #60a5fa, #a855f7);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-    }
-
-    .sidebar-nav li a {
-      color: var(--text-secondary) !important;
-      font-size: 0.875rem !important;
+    .sidebar-nav ul li a {
+      font-size: 14px !important;
       font-weight: 500;
-      transition: all 0.2s;
-      border-radius: var(--radius);
-      margin: 0.125rem 0.5rem;
+      color: var(--text-muted) !important;
+      border-radius: 8px;
+      margin: 4px 12px;
+      padding: 8px 12px !important;
+      transition: all 0.2s ease;
     }
 
-    .sidebar-nav li a:hover {
+    .sidebar-nav ul li a:hover {
       background: rgba(59, 130, 246, 0.1) !important;
-      color: var(--primary) !important;
+      color: var(--text-main) !important;
     }
 
     .sidebar-nav li.active > a {
       background: var(--primary) !important;
       color: white !important;
-      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+      border-right: none !important;
     }
 
     /* Content Area */
     .content {
+      top: 64px;
+      left: 280px;
       background: transparent !important;
     }
 
     .markdown-section {
-      max-width: 800px !important;
+      max-width: 900px !important;
+      padding: 2.5rem 3rem !important;
       background: transparent !important;
-      color: var(--text-secondary);
     }
 
-    /* Typography matching Dashboard */
-    .markdown-section h1 { color: white; font-weight: 800; letter-spacing: -0.025em; }
-    .markdown-section h2 { color: white; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
-    .markdown-section h3 { color: white; }
+    /* Typography */
+    .markdown-section h1 { font-size: 2.5rem; font-weight: 800; color: #fff; margin-bottom: 1rem; }
+    .markdown-section h2 { font-size: 1.75rem; font-weight: 700; color: #fff; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; margin-top: 2.5rem; }
+    .markdown-section p { color: var(--text-muted); line-height: 1.7; font-size: 16px; }
     
-    .markdown-section strong { color: white; }
-
-    /* Cards/Blocks styling */
+    /* Code Blocks like the Dashboard Console */
     .markdown-section code {
-      background: var(--bg-card);
-      color: #93c5fd; /* light blue */
-      border: 1px solid var(--border);
-      border-radius: 4px;
-      padding: 0.2rem 0.4rem;
+      background: #1e293b !important;
+      color: #60a5fa !important;
+      padding: 0.2rem 0.4rem !important;
+      border-radius: 6px !important;
+      border: 1px solid var(--border) !important;
     }
 
     .markdown-section pre {
-      background: #020617 !important; /* deeper slate */
+      background: #020617 !important;
       border: 1px solid var(--border);
-      border-radius: var(--radius);
-      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+      border-radius: 12px;
+      padding: 1.25rem;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
     }
 
-    /* Tables styled like your dashboard */
-    .markdown-section table {
-      display: table;
-      border-collapse: separate;
-      border-spacing: 0;
-      width: 100%;
-      background: rgba(30, 41, 59, 0.5);
-      border: 1px solid var(--border);
-      border-radius: var(--radius);
-      overflow: hidden;
-    }
-
-    .markdown-section table th {
-      background: rgba(15, 23, 42, 0.5);
-      color: var(--text-primary);
-      font-weight: 600;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .markdown-section table td {
-      border-bottom: 1px solid var(--border);
-    }
-
-    /* Search Bar Overlay */
+    /* Search Bar custom style */
     .search input {
-      background: rgba(15, 23, 42, 0.6) !important;
+      background: rgba(15, 23, 42, 0.5) !important;
       border: 1px solid var(--border) !important;
       color: white !important;
-      border-radius: var(--radius) !important;
+      border-radius: 8px !important;
+      padding: 10px 14px !important;
     }
 
-    .search input:focus {
-      box-shadow: 0 0 0 2px var(--primary) !important;
-    }
-
-    /* Alert Boxes */
+    /* Callouts / Alerts (Shadcn style) */
     .markdown-section .tip, .markdown-section .warn {
-      border-radius: var(--radius) !important;
-      border-left-width: 4px !important;
+      background: rgba(30, 41, 59, 0.5) !important;
+      border: 1px solid var(--border) !important;
+      border-left: 4px solid var(--primary) !important;
+      border-radius: 12px !important;
+      color: var(--text-main) !important;
     }
-    .markdown-section .tip { background: rgba(59, 130, 246, 0.1) !important; border-color: var(--primary) !important; }
 
-    /* Custom Scrollbar */
-    ::-webkit-scrollbar { width: 8px; }
-    ::-webkit-scrollbar-track { background: var(--bg-main); }
+    /* Scrollbar */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--background); }
     ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
-    ::-webkit-scrollbar-thumb:hover { background: #475569; }
+
+    @media (max-width: 768px) {
+      .content { left: 0; }
+      .sidebar { left: -280px; transition: left 0.3s ease; }
+      body.close .sidebar { left: 0; }
+    }
   </style>
 </head>
 <body>
-  <div id="app">Loading FiveMSecure Docs...</div>
-  
+  <div class="custom-navbar">
+    <div class="nav-left">
+      <img src="/fivemsecure.png" alt="Logo">
+      <span>FiveM<span style="color: var(--primary)">Secure</span> Docs</span>
+    </div>
+    <div class="nav-right">
+      <a href="https://fivemsecure.com/dashboard" style="text-decoration: none;">
+        <button style="background: var(--primary); color: white; border: none; padding: 8px 16px; border-radius: 8px; font-weight: 600; cursor: pointer; font-size: 13px;">
+          Go to Dashboard
+        </button>
+      </a>
+    </div>
+  </div>
+
+  <div id="app">Loading documentation...</div>
+
   <script>
     window.$docsify = {
-      name: '<span>FiveM</span>Secure',
-      repo: '',
+      name: 'FiveMSecure',
       loadSidebar: true,
-      subMaxLevel: 3,
+      subMaxLevel: 2,
       auto2top: true,
-      
-      // Search configuration
       search: {
         maxAge: 86400000,
         paths: 'auto',
@@ -190,15 +184,11 @@
         noData: 'No results found',
         depth: 6
       },
-
-      // Pagination
       pagination: {
         previousText: 'Previous',
         nextText: 'Next',
         crossChapter: true,
       },
-
-      // Copy Code
       copyCode: {
         buttonText: 'Copy',
         errorText: 'Error',

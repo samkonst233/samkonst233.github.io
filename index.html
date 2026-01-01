@@ -2,28 +2,32 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>FiveMSecure Documentation</title>
+  <title>FiveMSecure | Documentation</title>
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="description" content="Complete security and monitoring platform for FiveM servers">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+  
+  <link rel="icon" href="/fivemsecure.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
   
   <style>
     :root {
+      /* Matching your React Dashboard Palette */
       --primary: #3b82f6;
-      --primary-dark: #2563eb;
-      --primary-light: #60a5fa;
-      --bg-main: #0f172a;
-      --bg-sidebar: #1e293b;
-      --bg-elevated: #1e293b;
-      --bg-card: rgba(30, 41, 59, 0.5);
-      --border: rgba(51, 65, 85, 0.5);
-      --text-primary: #f1f5f9;
-      --text-secondary: #94a3b8;
-      --text-muted: #64748b;
-      --success: #10b981;
-      --warning: #f59e0b;
-      --error: #ef4444;
+      --primary-hover: #2563eb;
+      --bg-main: #0f172a; /* slate-900 */
+      --bg-sidebar: rgba(30, 41, 59, 0.7); /* slate-800 with opacity */
+      --bg-card: #1e293b; /* slate-800 */
+      --border: rgba(51, 65, 85, 0.5); /* slate-700/50 */
+      --text-primary: #ffffff;
+      --text-secondary: #94a3b8; /* slate-400 */
+      --text-muted: #64748b; /* slate-500 */
+      
+      /* Shadcn-like variables */
+      --radius: 0.5rem;
     }
 
     * {
@@ -32,584 +36,184 @@
       box-sizing: border-box;
     }
 
-    html, body {
-      height: 100%;
-      overflow: hidden;
-    }
-
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Inter', sans-serif;
-      background: var(--bg-main);
+      font-family: 'Inter', -apple-system, sans-serif;
+      background-color: var(--bg-main);
+      /* Subtle gradient background like your main site */
+      background-image: radial-gradient(at 0% 0%, rgba(30, 41, 59, 0.5) 0, transparent 50%), 
+                        radial-gradient(at 100% 100%, rgba(15, 23, 42, 1) 0, transparent 50%);
       color: var(--text-primary);
-      line-height: 1.6;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* Hide Docsify defaults */
-    .github-corner { display: none !important; }
-    .app-nav { display: none !important; }
-    section.cover { display: none !important; }
-    
-    /* Sidebar */
+    /* Sidebar Styling */
     .sidebar {
-      background: var(--bg-sidebar);
+      background: var(--bg-sidebar) !important;
+      backdrop-filter: blur(8px);
       border-right: 1px solid var(--border);
-      width: 280px !important;
-      padding: 0;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(148, 163, 184, 0.2) transparent;
+      color: var(--text-secondary);
     }
 
-    .sidebar::-webkit-scrollbar {
-      width: 6px;
-    }
-
-    .sidebar::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .sidebar::-webkit-scrollbar-thumb {
-      background: rgba(148, 163, 184, 0.2);
-      border-radius: 3px;
-    }
-
-    .sidebar::-webkit-scrollbar-thumb:hover {
-      background: rgba(148, 163, 184, 0.3);
-    }
-
-    .sidebar > h1 {
-      padding: 1.5rem 1.5rem 1rem;
-      font-size: 1.125rem;
+    .sidebar > h1 .app-name-link {
       font-weight: 700;
-      border-bottom: 1px solid var(--border);
-      margin: 0;
-    }
-
-    .sidebar > h1 a {
-      display: flex;
-      align-items: center;
-      gap: 0.625rem;
-      color: var(--text-primary);
+      font-size: 1.25rem;
+      color: white !important;
       text-decoration: none;
     }
 
-    .sidebar > h1 a span {
-      background: linear-gradient(135deg, #3b82f6 0%, #8b5cf6 100%);
+    /* Custom App Name Gradient */
+    .sidebar .app-name span {
+      background: linear-gradient(to right, #60a5fa, #a855f7);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
-      background-clip: text;
-      font-weight: 700;
-    }
-
-    .sidebar-nav {
-      padding: 1.5rem 1rem;
-    }
-
-    .sidebar-nav ul {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-
-    .sidebar-nav > ul > li {
-      margin-bottom: 1.5rem;
-    }
-
-    .sidebar-nav > ul > li:last-child {
-      margin-bottom: 0;
-    }
-
-    .sidebar-nav > ul > li > p {
-      font-size: 0.6875rem;
-      font-weight: 600;
-      text-transform: uppercase;
-      letter-spacing: 0.05em;
-      color: var(--text-muted);
-      padding: 0 0.75rem;
-      margin: 0 0 0.5rem 0;
-    }
-
-    .sidebar-nav ul ul {
-      padding-left: 0;
-      margin-top: 0.25rem;
     }
 
     .sidebar-nav li a {
-      display: block;
-      padding: 0.5rem 0.75rem;
-      color: var(--text-secondary);
-      text-decoration: none;
-      border-radius: 0.375rem;
-      font-size: 0.875rem;
-      transition: all 0.15s ease;
-      font-weight: 400;
+      color: var(--text-secondary) !important;
+      font-size: 0.875rem !important;
+      font-weight: 500;
+      transition: all 0.2s;
+      border-radius: var(--radius);
+      margin: 0.125rem 0.5rem;
     }
 
     .sidebar-nav li a:hover {
-      color: var(--text-primary);
-      background: rgba(59, 130, 246, 0.1);
+      background: rgba(59, 130, 246, 0.1) !important;
+      color: var(--primary) !important;
     }
 
     .sidebar-nav li.active > a {
-      color: var(--primary);
-      background: rgba(59, 130, 246, 0.15);
-      font-weight: 500;
+      background: var(--primary) !important;
+      color: white !important;
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
     }
 
-    /* Content */
+    /* Content Area */
     .content {
-      position: absolute;
-      left: 280px;
-      right: 0;
-      top: 0;
-      bottom: 0;
-      overflow-y: auto;
-      scrollbar-width: thin;
-      scrollbar-color: rgba(148, 163, 184, 0.2) transparent;
-    }
-
-    .content::-webkit-scrollbar {
-      width: 8px;
-    }
-
-    .content::-webkit-scrollbar-track {
-      background: transparent;
-    }
-
-    .content::-webkit-scrollbar-thumb {
-      background: rgba(148, 163, 184, 0.2);
-      border-radius: 4px;
-    }
-
-    .content::-webkit-scrollbar-thumb:hover {
-      background: rgba(148, 163, 184, 0.3);
+      background: transparent !important;
     }
 
     .markdown-section {
-      max-width: 56rem;
-      margin: 0 auto;
-      padding: 3rem 2.5rem 4rem;
-    }
-
-    .markdown-section h1 {
-      font-size: 2.25rem;
-      font-weight: 700;
-      margin: 0 0 0.75rem;
-      color: var(--text-primary);
-      letter-spacing: -0.025em;
-      line-height: 1.2;
-    }
-
-    .markdown-section h2 {
-      font-size: 1.75rem;
-      font-weight: 700;
-      margin: 2.5rem 0 1rem;
-      color: var(--text-primary);
-      padding-bottom: 0.5rem;
-      border-bottom: 1px solid var(--border);
-      letter-spacing: -0.02em;
-    }
-
-    .markdown-section h2:first-of-type {
-      margin-top: 1.5rem;
-    }
-
-    .markdown-section h3 {
-      font-size: 1.375rem;
-      font-weight: 600;
-      margin: 2rem 0 0.75rem;
-      color: var(--text-primary);
-    }
-
-    .markdown-section h4 {
-      font-size: 1.125rem;
-      font-weight: 600;
-      margin: 1.5rem 0 0.5rem;
-      color: var(--text-primary);
-    }
-
-    .markdown-section p {
-      margin: 1rem 0;
+      max-width: 800px !important;
+      background: transparent !important;
       color: var(--text-secondary);
-      font-size: 0.9375rem;
-      line-height: 1.7;
     }
 
-    .markdown-section strong {
-      color: var(--text-primary);
-      font-weight: 600;
-    }
+    /* Typography matching Dashboard */
+    .markdown-section h1 { color: white; font-weight: 800; letter-spacing: -0.025em; }
+    .markdown-section h2 { color: white; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem; }
+    .markdown-section h3 { color: white; }
+    
+    .markdown-section strong { color: white; }
 
-    .markdown-section a {
-      color: var(--primary);
-      text-decoration: none;
-      transition: color 0.15s;
-      font-weight: 500;
-    }
-
-    .markdown-section a:hover {
-      color: var(--primary-light);
-    }
-
+    /* Cards/Blocks styling */
     .markdown-section code {
-      font-family: 'SF Mono', 'Cascadia Code', Consolas, Monaco, 'Courier New', monospace;
-      font-size: 0.875em;
       background: var(--bg-card);
-      padding: 0.2em 0.4em;
-      border-radius: 0.25rem;
-      color: #e879f9;
+      color: #93c5fd; /* light blue */
       border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: 0.2rem 0.4rem;
     }
 
     .markdown-section pre {
-      background: var(--bg-elevated);
+      background: #020617 !important; /* deeper slate */
       border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      padding: 1.25rem;
-      margin: 1.5rem 0;
-      overflow-x: auto;
-      position: relative;
+      border-radius: var(--radius);
+      box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
     }
 
-    .markdown-section pre code {
-      background: none;
-      border: none;
-      padding: 0;
-      font-size: 0.8125rem;
-      color: var(--text-primary);
-      line-height: 1.6;
-    }
-
-    .markdown-section blockquote {
-      margin: 1.5rem 0;
-      padding: 1rem 1.25rem;
-      background: rgba(59, 130, 246, 0.05);
-      border-left: 3px solid var(--primary);
-      border-radius: 0 0.375rem 0.375rem 0;
-    }
-
-    .markdown-section blockquote p {
-      margin: 0;
-      color: var(--text-secondary);
-    }
-
-    .markdown-section blockquote strong {
-      color: var(--primary-light);
-    }
-
-    .markdown-section ul,
-    .markdown-section ol {
-      margin: 1rem 0;
-      padding-left: 1.5rem;
-      color: var(--text-secondary);
-    }
-
-    .markdown-section li {
-      margin: 0.375rem 0;
-    }
-
+    /* Tables styled like your dashboard */
     .markdown-section table {
+      display: table;
+      border-collapse: separate;
+      border-spacing: 0;
       width: 100%;
-      border-collapse: collapse;
-      margin: 1.5rem 0;
-      font-size: 0.875rem;
-      background: var(--bg-card);
+      background: rgba(30, 41, 59, 0.5);
       border: 1px solid var(--border);
-      border-radius: 0.5rem;
+      border-radius: var(--radius);
       overflow: hidden;
     }
 
     .markdown-section table th {
-      background: var(--bg-elevated);
+      background: rgba(15, 23, 42, 0.5);
       color: var(--text-primary);
       font-weight: 600;
-      text-align: left;
-      padding: 0.75rem 1rem;
       border-bottom: 1px solid var(--border);
     }
 
     .markdown-section table td {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--border);
-      color: var(--text-secondary);
-    }
-
-    .markdown-section table tbody tr:last-child td {
-      border-bottom: none;
-    }
-
-    .markdown-section table tr:hover {
-      background: rgba(59, 130, 246, 0.05);
-    }
-
-    /* Search */
-    .search {
-      padding: 1rem 1.5rem;
       border-bottom: 1px solid var(--border);
     }
 
+    /* Search Bar Overlay */
     .search input {
-      width: 100%;
-      background: rgba(30, 41, 59, 0.5);
-      border: 1px solid var(--border);
-      color: var(--text-primary);
-      padding: 0.625rem 1rem;
-      border-radius: 0.5rem;
-      font-size: 0.875rem;
-      outline: none;
-      transition: all 0.15s;
+      background: rgba(15, 23, 42, 0.6) !important;
+      border: 1px solid var(--border) !important;
+      color: white !important;
+      border-radius: var(--radius) !important;
     }
 
     .search input:focus {
-      border-color: var(--primary);
-      background: var(--bg-elevated);
-      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      box-shadow: 0 0 0 2px var(--primary) !important;
     }
 
-    .search input::placeholder {
-      color: var(--text-muted);
+    /* Alert Boxes */
+    .markdown-section .tip, .markdown-section .warn {
+      border-radius: var(--radius) !important;
+      border-left-width: 4px !important;
     }
+    .markdown-section .tip { background: rgba(59, 130, 246, 0.1) !important; border-color: var(--primary) !important; }
 
-    .matching-post {
-      padding: 0.75rem 1rem;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .matching-post:hover {
-      background: rgba(59, 130, 246, 0.05);
-    }
-
-    /* Copy button */
-    .docsify-copy-code-button {
-      position: absolute;
-      top: 0.5rem;
-      right: 0.5rem;
-      background: var(--primary) !important;
-      color: white !important;
-      border: none;
-      padding: 0.375rem 0.75rem !important;
-      font-size: 0.75rem !important;
-      border-radius: 0.375rem;
-      opacity: 0;
-      transition: opacity 0.2s;
-      cursor: pointer;
-    }
-
-    .markdown-section pre:hover .docsify-copy-code-button {
-      opacity: 1;
-    }
-
-    .docsify-copy-code-button:hover {
-      background: var(--primary-dark) !important;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-      .sidebar {
-        transform: translateX(-100%);
-        position: fixed;
-        z-index: 20;
-        transition: transform 0.3s;
-        height: 100%;
-      }
-
-      body.close .sidebar {
-        transform: translateX(-100%);
-      }
-
-      body.close .content {
-        left: 0;
-      }
-
-      .content {
-        left: 0;
-      }
-
-      .markdown-section {
-        padding: 2rem 1.5rem 3rem;
-      }
-
-      .markdown-section h1 {
-        font-size: 1.875rem;
-      }
-
-      .markdown-section h2 {
-        font-size: 1.5rem;
-      }
-    }
-
-    /* Polish */
-    .markdown-section img {
-      max-width: 100%;
-      border-radius: 0.5rem;
-      margin: 1.5rem 0;
-      border: 1px solid var(--border);
-    }
-
-    .markdown-section hr {
-      border: none;
-      border-top: 1px solid var(--border);
-      margin: 2rem 0;
-    }
-
-    /* Pagination */
-    .pagination-item {
-      margin-top: 3rem;
-      padding-top: 2rem;
-      border-top: 1px solid var(--border);
-    }
-
-    .pagination-item a {
-      display: inline-flex;
-      align-items: center;
-      gap: 0.5rem;
-      padding: 0.75rem 1.25rem;
-      background: var(--bg-card);
-      border: 1px solid var(--border);
-      border-radius: 0.5rem;
-      color: var(--text-primary);
-      text-decoration: none;
-      transition: all 0.15s;
-      font-weight: 500;
-    }
-
-    .pagination-item a:hover {
-      background: var(--bg-elevated);
-      border-color: var(--primary);
-      transform: translateY(-1px);
-    }
-
-    .pagination-item-title {
-      font-size: 0.875rem;
-      color: var(--text-secondary);
-    }
-
-    /* Alert boxes */
-    .markdown-section .tip,
-    .markdown-section .warn,
-    .markdown-section .danger {
-      padding: 1rem 1.25rem;
-      border-radius: 0.5rem;
-      margin: 1.5rem 0;
-      border-left: 3px solid;
-    }
-
-    .markdown-section .tip {
-      background: rgba(59, 130, 246, 0.1);
-      border-color: var(--primary);
-    }
-
-    .markdown-section .warn {
-      background: rgba(245, 158, 11, 0.1);
-      border-color: var(--warning);
-    }
-
-    .markdown-section .danger {
-      background: rgba(239, 68, 68, 0.1);
-      border-color: var(--error);
-    }
-
-    /* Loading */
-    #app {
-      height: 100%;
-    }
-
-    /* Anchor links */
-    .anchor {
-      display: inline-block;
-      text-decoration: none;
-      user-select: none;
-    }
-
-    .anchor span {
-      color: var(--text-muted);
-    }
-
-    h1:hover .anchor span,
-    h2:hover .anchor span,
-    h3:hover .anchor span,
-    h4:hover .anchor span {
-      color: var(--primary);
-    }
+    /* Custom Scrollbar */
+    ::-webkit-scrollbar { width: 8px; }
+    ::-webkit-scrollbar-track { background: var(--bg-main); }
+    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    ::-webkit-scrollbar-thumb:hover { background: #475569; }
   </style>
 </head>
 <body>
-  <div id="app">Loading documentation...</div>
+  <div id="app">Loading FiveMSecure Docs...</div>
   
   <script>
     window.$docsify = {
-      name: '<span>🛡️ FiveMSecure</span>',
+      name: '<span>FiveM</span>Secure',
       repo: '',
       loadSidebar: true,
-      subMaxLevel: 2,
+      subMaxLevel: 3,
       auto2top: true,
-      maxLevel: 4,
-      coverpage: false,
       
+      // Search configuration
       search: {
         maxAge: 86400000,
         paths: 'auto',
-        placeholder: 'Search...',
+        placeholder: 'Search documentation...',
         noData: 'No results found',
-        depth: 3,
-        hideOtherSidebarContent: false,
+        depth: 6
       },
-      
+
+      // Pagination
+      pagination: {
+        previousText: 'Previous',
+        nextText: 'Next',
+        crossChapter: true,
+      },
+
+      // Copy Code
       copyCode: {
         buttonText: 'Copy',
         errorText: 'Error',
-        successText: '✓'
-      },
-      
-      pagination: {
-        previousText: '← Previous',
-        nextText: 'Next →',
-        crossChapter: true,
-        crossChapterText: true,
-      },
-      
-      // Add custom footer
-      plugins: [
-        function(hook, vm) {
-          hook.beforeEach(function(html) {
-            return html;
-          });
-          
-          hook.afterEach(function(html, next) {
-            next(html);
-          });
-          
-          hook.doneEach(function() {
-            // Add target="_blank" to external links
-            const links = Array.from(document.querySelectorAll('.markdown-section a[href^="http"]'));
-            links.forEach(link => {
-              if (!link.href.includes('fivemsecure.com') && !link.href.includes(window.location.hostname)) {
-                link.setAttribute('target', '_blank');
-                link.setAttribute('rel', 'noopener noreferrer');
-              }
-            });
-          });
-        }
-      ]
+        successText: 'Copied'
+      }
     }
   </script>
-  
-  <!-- Docsify core -->
+
   <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
-  
-  <!-- Plugins -->
   <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2/dist/docsify-copy-code.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
   <script src="//cdn.jsdelivr.net/npm/docsify-pagination@2/dist/docsify-pagination.min.js"></script>
   
-  <!-- Syntax highlighting -->
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-lua.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-javascript.min.js"></script>
+  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
   <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-yaml.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-markdown.min.js"></script>
 </body>
 </html>

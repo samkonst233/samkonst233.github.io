@@ -1,0 +1,19 @@
+- Getting Started
+  - [Introduction](/)
+  - [Installation](installation.md)
+  - [Configuration](configuration.md)
+  - [Dashboard](dashboard.md)
+
+- Features
+  - [Protection Categories](protections.md)
+  - [Live Monitoring](monitoring.md)
+  - [Admin System](admins.md)
+  - [Server Console](console.md)
+
+- Reference
+  - [Lua Exports](lua-exports.md)
+  - [REST API](api.md)
+
+- Help
+  - [Troubleshooting](troubleshooting.md)
+  - [FAQ](faq.md)

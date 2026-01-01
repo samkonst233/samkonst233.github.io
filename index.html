@@ -3,9 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>FiveMSecure | Documentation</title>
-  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
   <link rel="icon" href="/fivemsecure.png">
 
   <script src="https://cdn.tailwindcss.com"></script>
@@ -13,223 +11,96 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <style>
-    /* Base Overrides */
-    :root {
-      --primary: #3b82f6; /* blue-600 */
-      --sidebar-width: 280px;
-    }
+    :root { --sidebar-width: 280px; }
+    body { font-family: 'Inter', sans-serif; background-color: #0f172a; color: #f1f5f9; }
 
-    body {
-      font-family: 'Inter', sans-serif;
-      background-color: #0f172a; /* slate-900 */
-      color: #f1f5f9;
-      margin: 0;
-    }
-
-    /* Docsify Sidebar Reset & Custom UI */
-    .sidebar {
-      position: static !important;
-      padding: 0 !important;
-      width: 100% !important;
-      background: transparent !important;
-      border: none !important;
-      overflow: visible !important;
-    }
-
-    .sidebar-nav { padding: 0 !important; }
+    /* Docsify Native Overrides */
+    #app { display: none; } /* Hide default docsify rendering until ready */
+    .anchor span { color: #3b82f6 !important; }
     
-    /* Bold Section Headers */
-    .sidebar-nav strong {
-      display: block;
-      padding: 1.5rem 1rem 0.5rem;
-      font-size: 0.65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: 0.1em;
-      color: #64748b; /* slate-500 */
+    /* Custom Sidebar Styles to override Docsify defaults */
+    .sidebar-nav ul { list-style: none; padding: 0; margin: 0; }
+    .sidebar-nav li { margin: 4px 0; }
+    .sidebar-nav a { 
+        display: block; padding: 8px 16px; color: #94a3b8 !important; 
+        text-decoration: none !important; font-size: 14px; border-radius: 8px;
     }
+    .sidebar-nav a:hover { background: rgba(59, 130, 246, 0.1); color: #3b82f6 !important; }
+    .sidebar-nav li.active > a { background: #3b82f6 !important; color: white !important; font-weight: 600; }
+    .sidebar-nav strong { display: block; padding: 24px 16px 8px; font-size: 11px; text-transform: uppercase; color: #64748b; letter-spacing: 0.1em; }
 
-    /* Sidebar Links Style (Like your Dashboard) */
-    .sidebar-nav ul { list-style: none; margin: 0; padding: 0; }
-    .sidebar-nav li { margin: 2px 0; }
-    .sidebar-nav a {
-      display: block;
-      padding: 10px 14px;
-      color: #94a3b8 !important; /* slate-400 */
-      text-decoration: none !important;
-      font-size: 0.875rem;
-      font-weight: 500;
-      border-radius: 8px;
-      margin: 0 12px;
-      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-    }
-
-    .sidebar-nav a:hover {
-      background: rgba(59, 130, 246, 0.1);
-      color: #3b82f6 !important;
-    }
-
-    /* Active Page Highlight */
-    .sidebar-nav li.active > a {
-      background: #3b82f6 !important;
-      color: white !important;
-      box-shadow: 0 4px 15px -5px rgba(59, 130, 246, 0.4);
-    }
-
-    /* Markdown Content Area styling */
-    .content {
-      position: static !important;
-      width: 100% !important;
-      padding: 0 !important;
-    }
-
-    .markdown-section {
-      max-width: 900px !important;
-      margin: 0 auto !important;
-      padding: 3rem 1.5rem !important;
-      color: #94a3b8;
-    }
-
-    /* Typographical alignment with Dashboard */
-    .markdown-section h1 { color: white !important; font-weight: 800; font-size: 2.25rem; margin-bottom: 1.5rem; }
-    .markdown-section h2 { 
-      color: white !important; 
-      font-weight: 700; 
-      border-bottom: 1px solid rgba(51, 65, 85, 0.5); 
-      padding-bottom: 0.75rem; 
-      margin-top: 3.5rem; 
-    }
-    .markdown-section h3 { color: #f1f5f9 !important; font-weight: 600; margin-top: 2rem; }
-    .markdown-section strong { color: white; }
-
-    /* Code Blocks matching the Dashboard Console */
-    .markdown-section pre {
-      background: #020617 !important; /* Deeper slate */
-      border: 1px solid rgba(51, 65, 85, 0.5);
-      border-radius: 12px;
-      padding: 1.25rem;
-      margin: 1.5rem 0;
-      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.5);
-    }
-
-    .markdown-section code {
-      font-family: 'JetBrains Mono', monospace !important;
-      color: #60a5fa !important;
-      background: rgba(30, 41, 59, 0.6) !important;
-      padding: 0.2rem 0.4rem !important;
-      border-radius: 6px !important;
-      font-size: 0.9em;
-    }
-
-    /* Hide default docsify components */
-    .sidebar-toggle { display: none !important; }
-    .search input {
-      background: rgba(15, 23, 42, 0.5) !important;
-      border: 1px solid #1e293b !important;
-      color: white !important;
-      border-radius: 8px !important;
-      margin-bottom: 1rem !important;
-    }
-
-    /* Scrollbar */
-    ::-webkit-scrollbar { width: 6px; }
-    ::-webkit-scrollbar-track { background: #0f172a; }
-    ::-webkit-scrollbar-thumb { background: #334155; border-radius: 10px; }
+    /* Markdown Section Styling */
+    .markdown-section { max-width: 900px !important; margin: 0 auto !important; padding: 40px 20px !important; background: transparent !important; }
+    .markdown-section h1 { font-size: 36px; font-weight: 800; color: white; margin-bottom: 24px; }
+    .markdown-section h2 { font-size: 24px; font-weight: 700; color: white; border-bottom: 1px solid #1e293b; padding-bottom: 12px; margin-top: 48px; }
+    .markdown-section p { font-size: 16px; line-height: 1.8; color: #94a3b8; }
+    
+    /* Code Blocks like the Console */
+    .markdown-section pre { background: #020617 !important; border: 1px solid #1e293b; border-radius: 12px; padding: 20px; position: relative; }
+    .markdown-section code { color: #60a5fa !important; background: transparent !important; font-family: 'JetBrains Mono', monospace; }
+    
+    /* Search Overlays */
+    .search input { background: #1e293b !important; border: 1px solid #334155 !important; border-radius: 8px !important; color: white !important; }
   </style>
 </head>
-<body class="selection:bg-blue-500/30">
+<body>
 
-  <div class="flex flex-col min-h-screen">
-    
-    <header class="sticky top-0 z-50 w-full border-b border-slate-800 bg-slate-900/75 backdrop-blur-xl">
-      <div class="container mx-auto px-6 h-16 flex items-center justify-between">
-        <div class="flex items-center gap-4">
-          <div class="bg-blue-600 p-2 rounded-xl shadow-lg shadow-blue-600/20">
-            <i data-lucide="shield" class="w-5 h-5 text-white"></i>
-          </div>
-          <div class="flex flex-col leading-tight">
-            <span class="text-base font-bold tracking-tight text-white">FiveM<span class="text-blue-500">Secure</span></span>
-            <span class="text-[10px] font-medium text-slate-500 uppercase tracking-widest">Documentation</span>
-          </div>
-        </div>
-        
-        <div class="flex items-center gap-3">
-          <a href="https://discord.gg/yourlink" class="p-2 text-slate-400 hover:text-white transition-colors">
-            <i data-lucide="message-square" class="w-5 h-5"></i>
-          </a>
-          <div class="h-4 w-px bg-slate-800 mx-2"></div>
-          <a href="https://fivemsecure.com/dashboard" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition-all transform active:scale-95 shadow-lg shadow-blue-900/20">
-            GO TO CONSOLE
-          </a>
-        </div>
+<div class="flex flex-col min-h-screen">
+  <nav class="fixed top-0 w-full h-16 border-b border-slate-800 bg-slate-900/80 backdrop-blur-xl z-[100] flex items-center justify-between px-6">
+    <div class="flex items-center gap-3">
+      <div class="bg-blue-600 p-2 rounded-lg shadow-lg shadow-blue-500/20">
+        <i data-lucide="shield" class="w-5 h-5 text-white"></i>
       </div>
-    </header>
-
-    <div class="flex flex-1 container mx-auto px-6">
-      
-      <aside class="hidden md:block w-[280px] h-[calc(100vh-4rem)] sticky top-16 pt-8 overflow-y-auto border-r border-slate-800/40 pr-2">
-        <div id="sidebar-content"></div>
-      </aside>
-
-      <main class="flex-1 min-w-0 md:pl-10">
-        <div id="app">
-          <div class="flex items-center justify-center min-h-[60vh]">
-            <div class="flex flex-col items-center gap-4">
-              <div class="w-10 h-10 border-4 border-blue-600/20 border-t-blue-600 rounded-full animate-spin"></div>
-              <p class="text-slate-500 text-sm font-medium animate-pulse">Synchronizing Docs...</p>
-            </div>
-          </div>
-        </div>
-      </main>
-
+      <span class="text-lg font-bold">FiveM<span class="text-blue-500">Secure</span></span>
+      <span class="text-[10px] bg-slate-800 text-slate-400 px-2 py-0.5 border border-slate-700 rounded font-bold uppercase tracking-widest">Docs</span>
     </div>
+    <div class="flex items-center gap-4">
+      <a href="https://discord.gg/yourlink" class="text-slate-400 hover:text-white transition-colors"><i data-lucide="message-square" class="w-5 h-5"></i></a>
+      <a href="https://fivemsecure.com/dashboard" class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-lg text-xs font-bold transition-all shadow-lg shadow-blue-500/20">GO TO CONSOLE</a>
+    </div>
+  </nav>
+
+  <div class="flex flex-1 pt-16 container mx-auto">
+    <aside class="w-72 fixed h-[calc(100vh-64px)] border-r border-slate-800/50 hidden md:block overflow-y-auto custom-scrollbar">
+      <div id="sidebar-target" class="py-6 pr-4">
+        </div>
+    </aside>
+
+    <main class="flex-1 md:ml-72 min-w-0">
+      <div id="main-content-area">
+        </div>
+    </main>
   </div>
+</div>
 
-  <script>
-    window.$docsify = {
-      name: 'FiveMSecure',
-      loadSidebar: true, 
-      alias: {
-        '/.*/_sidebar.md': '/_sidebar.md' // Ensures correct sidebar loading on all pages
-      },
-      subMaxLevel: 2,
-      auto2top: true,
-      appendTo: '#sidebar-content', // Forces sidebar into our custom layout div
-      search: {
-        maxAge: 86400000,
-        paths: 'auto',
-        placeholder: 'Search documentation...',
-        noData: 'No results found',
-        depth: 4
-      },
-      copyCode: {
-        buttonText: 'Copy',
-        errorText: 'Error',
-        successText: 'Copied'
+<script>
+  window.$docsify = {
+    el: '#main-content-area',
+    loadSidebar: true,
+    auto2top: true,
+    subMaxLevel: 3,
+    alias: { '/.*/_sidebar.md': '/_sidebar.md' },
+    appendTo: '#sidebar-target',
+    search: 'auto',
+    copyCode: { buttonText: 'Copy', successText: 'Copied' },
+    plugins: [
+      function(hook) {
+        hook.doneEach(function() {
+          lucide.createIcons();
+          // Force scroll to top on page change
+          window.scrollTo(0, 0);
+        });
       }
-    }
-  </script>
+    ]
+  }
+</script>
 
-  <script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
-  
-  <script>
-    // Initialize Icons
-    lucide.createIcons();
+<script src="//cdn.jsdelivr.net/npm/docsify@4/lib/docsify.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify/lib/plugins/search.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/docsify-copy-code@2"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-lua.min.js"></script>
+<script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
 
-    // Re-initialize icons after Docsify finishes loading a page
-    window.addEventListener('hashchange', () => {
-      setTimeout(() => {
-        lucide.createIcons();
-        // Scroll to top on page change
-        document.querySelector('main').scrollTop = 0;
-      }, 150);
-    });
-  </script>
-
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-lua.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-bash.min.js"></script>
-  <script src="//cdn.jsdelivr.net/npm/prismjs@1/components/prism-json.min.js"></script>
+<script>lucide.createIcons();</script>
 </body>
 </html>

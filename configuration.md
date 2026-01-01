@@ -1,111 +1,81 @@
 # Configuration
 
-Configure FiveMSecure through the web dashboard at [fivemsecure.com/dashboard](https://fivemsecure.com/dashboard).
+Configure FiveMSecure through the web dashboard.
+
+## Accessing Configuration
+
+1. Go to [fivemsecure.com/dashboard](https://fivemsecure.com/dashboard)
+2. Sign in with Discord
+3. Navigate to **Settings**
 
 ## Protection Actions
 
-Each protection can be configured with one of these actions:
+Each protection can be assigned one of these actions:
 
 | Action | Behavior |
 |--------|----------|
-| **Ban** | Permanently bans the player |
-| **Kick** | Removes player from server |
-| **Warn** | Logs a warning (no action taken) |
+| **Ban** | Permanently removes player from server |
+| **Kick** | Temporarily removes player from server |
+| **Warn** | Logs violation without punishment |
 | **None** | Disables the protection |
 
 ## General Settings
 
-### Whitelist
+### Whitelist Mode
 
-Enable to allow only whitelisted players to join.
+When enabled, only whitelisted players can join your server.
+```lua
+Config.enableWhitelist = true
+```
+
+Use this for private servers or during maintenance.
 
 ### Advanced Ban Logic
 
-Uses enhanced detection algorithms for better accuracy.
+Enables enhanced detection algorithms for improved accuracy and fewer false positives.
+```lua
+Config.advancedBanLogic = true
+```
+
+Recommended to keep this enabled.
 
 ## Protection Categories
 
-Configure protections by category in the dashboard:
-
 ### Movement
-- Anti Noclip
-- Anti Super Jump
-- Anti Freecam
-- Anti Teleport
+- **Anti Noclip** - Prevents flying through walls
+- **Anti Super Jump** - Blocks unrealistic jumping
+- **Anti Freecam** - Stops freecam scouting
+- **Anti Teleport** - Prevents unauthorized teleportation
 
 ### Player
-- Anti Invisibility
-- Anti One-Punch
-- Heal/Armor Check
+- **Anti Invisibility** - Detects invisible players
+- **Anti One-Punch** - Prevents instant kill melee
+- **Heal/Armor Check** - Monitors health modifications
 
 ### Vehicle
-- Anti Vehicle Repair
-- Blacklisted Vehicles
+- **Anti Vehicle Repair** - Blocks instant repair
+- **Blacklisted Vehicles** - Ban specific vehicle models
 
 ### Explosion
-- Anti Explosions
+- **Anti Explosions** - Prevents unauthorized explosions
 
 ### Aim
-- Anti Aimbot
+- **Anti Aimbot** - Detects aim assistance software
 
 ### Weapon
-- Blacklisted Weapons
+- **Blacklisted Weapons** - Ban specific weapons
 
 ### Ped
-- Blacklisted Peds
+- **Blacklisted Peds** - Ban specific player models
 
 ### Cheats
-- Anti Eulen
+- **Anti Eulen** - Detects Eulen cheat menu
 
 ### Injector
-- Protect Triggers
+- **Protect Triggers** - Blocks unauthorized event triggers
 
-## Blacklists
+## Managing Blacklists
 
-Add items to blacklists through the dashboard:
+Click the settings icon next to any blacklist protection to manage items.
 
-**Vehicles**
-
-## Webhooks
-
-Configure Discord webhooks for logging:
-
-- Join/Leave logs
-- Ban logs
-- Screenshot logs
-- Resource logs
-
-Add webhook URLs in the **Logs** section of the dashboard.
-
-## Recommended Settings
-
-For new servers:
-```lua
--- Movement protections
-antiNoclip = true (action: kick)
-antiSuperjump = true (action: kick)
-antiTeleport = true (action: ban)
-
--- Player protections
-antiinvis = true (action: warn)
-antiOnePunch = true (action: ban)
-
--- Explosion protection
-antiExplosion = true (action: ban)
-
--- Aim protection
-antiAimbot = true (action: ban)
-```
-
-## Best Practices
-
-1. Start with **Warn** actions to test
-2. Monitor logs for false positives
-3. Gradually increase severity to **Kick** then **Ban**
-4. Test configuration changes on a development server first
-
-## Next Steps
-
-- [Learn about protection categories](protections.md)
-- [Set up live monitoring](monitoring.md)
-- [Add admin users](admins.md)
+### Example: Blacklisted Vehicles

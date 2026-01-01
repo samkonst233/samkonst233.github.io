@@ -2,7 +2,7 @@
   - [Introduction](/)
   - [Installation](installation.md)
   - [Configuration](configuration.md)
-  - [Dashboard](dashboard.md)
+  - [Dashboard Guide](dashboard.md)
 
 - Features
   - [Protection Categories](protections.md)
@@ -14,6 +14,6 @@
   - [Lua Exports](lua-exports.md)
   - [REST API](api.md)
 
-- Help
+- Support
   - [Troubleshooting](troubleshooting.md)
   - [FAQ](faq.md)

@@ -1,38 +1,40 @@
-# FiveMSecure
+# Introduction
 
-Complete anti-cheat and monitoring platform for FiveM servers.
+FiveMSecure is a comprehensive anti-cheat and monitoring platform for FiveM servers. It provides protection against cheats, real-time player monitoring, and complete server management through a web-based dashboard.
 
-## Features
+## Key Features
 
 **Anti-Cheat Protection**  
-9 protection categories covering movement, weapons, vehicles, explosions, and more.
+Nine protection categories covering movement exploits, weapon modifications, vehicle cheats, and more.
 
-**Live Monitoring**  
-Watch player screens in real-time via WebRTC streaming.
+**Live Player Monitoring**  
+Watch player screens in real-time using WebRTC streaming technology.
 
-**Admin System**  
-Grant dashboard access to trusted users with custom permissions.
+**Admin Permission System**  
+Grant dashboard access to trusted users with granular permission controls.
 
-**Server Console**  
-Execute commands and view logs directly from the web interface.
+**Server Management**  
+Execute console commands, manage resources, and view logs directly from the web interface.
 
-## Getting Started
+## Quick Start
 
-Follow these steps to get FiveMSecure running:
+New to FiveMSecure? Follow these steps:
 
-1. [Installation](installation.md) - Set up FiveMSecure on your server
-2. [Configuration](configuration.md) - Configure protection settings
-3. [Dashboard](dashboard.md) - Learn the web interface
+1. Purchase a license at [fivemsecure.com](https://fivemsecure.com)
+2. Follow the [installation guide](installation.md)
+3. Configure [protection settings](configuration.md)
+4. Access your [dashboard](dashboard.md)
 
-## Quick Links
+## System Requirements
 
-- [Protection Categories](protections.md)
-- [Live Monitoring](monitoring.md)
-- [Troubleshooting](troubleshooting.md)
+- FiveM server (latest version)
+- Valid FiveMSecure license
+- Discord account (for dashboard authentication)
 
-## Support
+## Getting Help
 
-Need help? Reach out through:
+**Discord Community**  
+Join our [Discord server](https://discord.gg/UCjjX5hqwV) for support and updates.
 
-- [Discord Community](https://discord.gg/UCjjX5hqwV)
-- Email: support@fivemsecure.com
+**Email Support**  
+Reach out to support@fivemsecure.com for direct assistance.

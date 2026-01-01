@@ -1,97 +1,196 @@
 # Lua Exports
 
-Use FiveMSecure functions in your own resources.
+Use FiveMSecure functions in your custom resources.
 
 ## Client Exports
 
-### Check if Player is Banned
+### IsPlayerBanned
+
+Check if the current player is banned.
 ```lua
 local isBanned = exports['fivemsecure']:IsPlayerBanned()
 ```
 
-Returns `true` if the current player is banned.
+**Returns**: `boolean` - True if player is banned
 
-### Get Player Protection Status
+**Example**:
+```lua
+if exports['fivemsecure']:IsPlayerBanned() then
+    print("You are banned from this server")
+end
+```
+
+### GetProtectionStatus
+
+Get status of all protections.
 ```lua
 local protections = exports['fivemsecure']:GetProtectionStatus()
 ```
 
-Returns a table with enabled protections.
+**Returns**: `table` - Protection status data
+
+**Example**:
+```lua
+local status = exports['fivemsecure']:GetProtectionStatus()
+print("Noclip protection:", status.antiNoclip)
+```
 
 ## Server Exports
 
-### Ban a Player
+### BanPlayer
+
+Ban a player from the server.
 ```lua
 exports['fivemsecure']:BanPlayer(source, reason, duration)
 ```
 
-**Parameters:**
-- `source` - Player server ID
-- `reason` - Ban reason (string)
-- `duration` - Duration in minutes (0 for permanent)
+**Parameters**:
+- `source` (number) - Player server ID
+- `reason` (string) - Ban reason
+- `duration` (number) - Duration in minutes (0 for permanent)
 
-**Example:**
+**Example**:
 ```lua
 -- Permanent ban
-exports['fivemsecure']:BanPlayer(1, "Cheating", 0)
+exports['fivemsecure']:BanPlayer(1, "Cheating detected", 0)
 
--- 24 hour ban
-exports['fivemsecure']:BanPlayer(1, "Trolling", 1440)
+-- 24-hour ban
+exports['fivemsecure']:BanPlayer(1, "Excessive trolling", 1440)
+
+-- 7-day ban
+exports['fivemsecure']:BanPlayer(1, "Rule violation", 10080)
 ```
 
-### Kick a Player
+### KickPlayer
+
+Kick a player from the server.
 ```lua
 exports['fivemsecure']:KickPlayer(source, reason)
 ```
 
-**Parameters:**
-- `source` - Player server ID
-- `reason` - Kick reason (string)
+**Parameters**:
+- `source` (number) - Player server ID
+- `reason` (string) - Kick reason
 
-**Example:**
+**Example**:
 ```lua
-exports['fivemsecure']:KickPlayer(1, "AFK")
+exports['fivemsecure']:KickPlayer(1, "AFK timeout")
 ```
 
-### Check if Player is Whitelisted
+### IsPlayerWhitelisted
+
+Check if a player is whitelisted.
 ```lua
 local isWhitelisted = exports['fivemsecure']:IsPlayerWhitelisted(identifier)
 ```
 
-**Parameters:**
-- `identifier` - Player identifier (Steam, License, Discord)
+**Parameters**:
+- `identifier` (string) - Player identifier (Steam, License, or Discord)
 
-**Returns:** `true` if whitelisted, `false` otherwise
+**Returns**: `boolean` - True if whitelisted
 
-### Add to Whitelist
+**Example**:
+```lua
+local steamId = "steam:110000abcdef"
+if exports['fivemsecure']:IsPlayerWhitelisted(steamId) then
+    print("Player is whitelisted")
+end
+```
+
+### AddToWhitelist
+
+Add a player to the whitelist.
 ```lua
 exports['fivemsecure']:AddToWhitelist(identifier)
 ```
 
-### Remove from Whitelist
+**Parameters**:
+- `identifier` (string) - Player identifier
+
+**Example**:
+```lua
+exports['fivemsecure']:AddToWhitelist("steam:110000abcdef")
+```
+
+### RemoveFromWhitelist
+
+Remove a player from the whitelist.
 ```lua
 exports['fivemsecure']:RemoveFromWhitelist(identifier)
 ```
 
+**Parameters**:
+- `identifier` (string) - Player identifier
+
+**Example**:
+```lua
+exports['fivemsecure']:RemoveFromWhitelist("steam:110000abcdef")
+```
+
 ## Events
 
-### Player Banned
+### playerBanned
+
+Triggered when a player is banned.
 ```lua
 AddEventHandler('fivemsecure:playerBanned', function(source, reason, duration)
-    print(('Player %s banned for: %s'):format(source, reason))
+    print(string.format('Player %s banned for: %s', source, reason))
 end)
 ```
 
-### Player Kicked
+**Parameters**:
+- `source` (number) - Player who was banned
+- `reason` (string) - Ban reason
+- `duration` (number) - Ban duration in minutes
+
+### playerKicked
+
+Triggered when a player is kicked.
 ```lua
 AddEventHandler('fivemsecure:playerKicked', function(source, reason)
-    print(('Player %s kicked for: %s'):format(source, reason))
+    print(string.format('Player %s kicked for: %s', source, reason))
 end)
 ```
 
-### Protection Triggered
+**Parameters**:
+- `source` (number) - Player who was kicked
+- `reason` (string) - Kick reason
+
+### protectionTriggered
+
+Triggered when any protection detects a violation.
 ```lua
-AddEventHandler('fivemsecure:protectionTriggered', function(source, protectionType)
-    print(('Protection %s triggered by %s'):format(protectionType, source))
+AddEventHandler('fivemsecure:protectionTriggered', function(source, protectionType, action)
+    print(string.format('Protection %s triggered by %s - Action: %s', protectionType, source, action))
 end)
 ```
+
+**Parameters**:
+- `source` (number) - Player who triggered protection
+- `protectionType` (string) - Type of protection (e.g., "antiNoclip")
+- `action` (string) - Action taken ("ban", "kick", "warn", "none")
+
+## Integration Example
+
+Example admin command using exports:
+```lua
+RegisterCommand('adminban', function(source, args, rawCommand)
+    -- Check if player is admin
+    if not IsPlayerAceAllowed(source, 'admin') then
+        return
+    end
+
+    local targetId = tonumber(args[1])
+    local reason = table.concat(args, ' ', 2)
+
+    if not targetId or not reason then
+        TriggerClientEvent('chat:addMessage', source, {
+            color = { 255, 0, 0 },
+            multiline = true,
+            args = {"Error", "Usage: /adminban [id] [reason]"}
+        })
+        return
+    end
+
+    -- Use FiveMSecure export to ban
+    export
